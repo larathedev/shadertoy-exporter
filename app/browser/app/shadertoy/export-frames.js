@@ -71,7 +71,11 @@ export function exportPNGs(options, iframe) {
 		}
 
 		function RequestAnimationFrame(originalRender) {
-			originalRequestAnimationFrame.call(gShaderToy.mEffect, complete ? originalRender : render.bind(this, originalRender));
+			if (complete) {
+				originalRequestAnimationFrame.call(gShaderToy.mEffect, originalRender);
+			} else {
+				window.requestAnimationFrame(render.bind(this, originalRender));
+			}
 		}
 
 		function getRealTime() {

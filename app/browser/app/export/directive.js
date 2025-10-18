@@ -62,50 +62,62 @@ export default [() => {
 				$scope.preset = null;
 			};
 
-			$scope.selectDirectoryAndPrefix = () => {
-				dialog.showSaveDialog({
-					buttonLabel: 'Select',
-					defaultPath: $scope.directory && $scope.prefix && join($scope.directory, $scope.prefix),
-					filters: [
-						{ name: 'Image', extensions: ['png'] },
-					],
-				}, (path) => {
-					if (path)
+			$scope.selectDirectoryAndPrefix = async () => {
+				try {
+					const result = await dialog.showSaveDialog({
+						buttonLabel: 'Select',
+						defaultPath: $scope.directory && $scope.prefix && join($scope.directory, $scope.prefix) || '',
+						filters: [
+							{ name: 'Image', extensions: ['png'] },
+						],
+					});
+					if (result.filePath) {
 						return $scope.$apply(() => {
-							$scope.directory = dirname(path);
-							$scope.prefix = basename(path, extname(path));
+							$scope.directory = dirname(result.filePath);
+							$scope.prefix = basename(result.filePath, extname(result.filePath));
 						});
-				});
+					}
+				} catch (e) {
+					log('Save Dialog Error:', e)
+				}
 			};
 
 			$scope.openDirectory = () => {
 				shell.openItem($scope.directory);
 			};
 
-			$scope.selectFFMPEGCommand = () => {
-				dialog.showOpenDialog({
-					buttonLabel: 'Select',
-					defaultPath: $scope.ffmpegCommand,
-					properties: [ 'openFile'],
-				}, (paths) => {
-					if (paths && paths.length)
+			$scope.selectFFMPEGCommand = async () => {
+				try {
+					const result = await dialog.showOpenDialog({
+						buttonLabel: 'Select',
+						defaultPath: $scope.ffmpegCommand || '',
+						properties: [ 'openFile'],
+					});
+					if (result.filePaths && result.filePaths) {
 						return $scope.$apply(() => {
-							$scope.ffmpegCommand = paths[0];
+							$scope.ffmpegCommand = result.filePaths[0];
 						});
-				});
+					}
+				} catch (e) {
+					log('Open Dialog Error:', e)
+				}
 			};
 
-			$scope.mp4SelectAudio = () => {
-				dialog.showOpenDialog({
-					buttonLabel: 'Select',
-					defaultPath: $scope.mp4AudioPath,
-					properties: [ 'openFile'],
-				}, (paths) => {
-					if (paths && paths.length)
+			$scope.mp4SelectAudio = async () => {
+				try {
+					const result = await dialog.showOpenDialog({
+						buttonLabel: 'Select',
+						defaultPath: $scope.mp4AudioPath || '',
+						properties: [ 'openFile'],
+					});
+					if (result.filePaths && result.filePaths) {
 						return $scope.$apply(() => {
-							$scope.mp4AudioPath = paths[0];
+							$scope.mp4AudioPath = result.filePaths[0];
 						});
-				});
+					}
+				} catch (e) {
+					log('Open Dialog Error:', e)
+				}
 			};
 
 			$scope.mp4OpenAudio = () => {

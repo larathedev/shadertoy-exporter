@@ -26,11 +26,17 @@ function createWindow() {
 		y: winState.y,
 		width: winState.width,
 		height: winState.height,
-		show: false
+		show: false,
+		webPreferences: {
+			nodeIntegration: true,
+			contextIsolation: false,
+			sandbox: false,
+			webviewTag: true
+    	},
 	});
 
 	// From https://github.com/electron/electron/pull/573#issuecomment-263186361
-	win.webContents.session.webRequest.onHeadersReceived({}, (d, c) => {
+	win.webContents.session.webRequest.onHeadersReceived((d, c) => {
 		if (
 			d.responseHeaders['x-frame-options'] ||
 			d.responseHeaders['X-Frame-Options']
@@ -62,6 +68,7 @@ function createWindow() {
 	});
 }
 
+app.commandLine.appendSwitch('disable-site-isolation-trials');
 app.on('ready', () => {
 	createWindow();
 });
