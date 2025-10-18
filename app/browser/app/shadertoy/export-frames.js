@@ -16,6 +16,8 @@ export function exportPNGs(options, iframe) {
 		gShaderToy.mCanvas.height = yres;
 		gShaderToy.mEffect.mXres = xres;
 		gShaderToy.mEffect.mYres = yres;
+		gShaderToy.mCanvas.style.width = `${xres}px`;
+  		gShaderToy.mCanvas.style.height = `${yres}px`;
 		gShaderToy.mEffect.ResizeBuffers(xres, yres);
 	}
 

@@ -117,7 +117,7 @@ export default ['$rootScope', ($rootScope) => {
 
 			if (options.openDirectoryAfterwards) {
 				chain = chain.then(() => {
-					shell.openItem(options.directory);
+					shell.openPath(options.directory);
 				});
 			}
 
