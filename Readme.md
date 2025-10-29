@@ -2,14 +2,14 @@
 
 This is a fixed version of Shadertoy Exporter that works with Cloudflare. The functionality is the same as the original application. Enjoy!
 
-How to run the application from source:
+How to run and build the application from source:
 1. Clone the repo or download the source code
 2. Make sure you have [npm](https://www.npmjs.com/) and [git](https://git-scm.com/) installed.
 3. In the folder with the source code, use the terminal/command line to run `npm install`.
 4. Once the install script finishes, use `npm run start` to start the application.
 5. Use `npm run build` to build the application.
 
-[Download the fixed executable for Windows](https://github.com/larathedev/shadertoy-exporter/releases)
+[Download the fixed executable for Windows and MacOS](https://github.com/larathedev/shadertoy-exporter/releases)
 
 Features:
 
